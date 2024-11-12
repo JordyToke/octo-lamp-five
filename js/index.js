@@ -53,9 +53,8 @@ window.addEventListener('DOMContentLoaded', () => {
           clock.innerHTML='00:'+ sec;
           sec--;
           if (sec < 0) {
-              calculateScore();
+              calculateScore(timer);
               console.log('Timeout: Score Updated');
-              clearInterval(timer);
           }
       }, 1000)
 }
@@ -110,7 +109,7 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   // Calculate the score
-  const calculateScore = () => {
+  const calculateScore = (timer) => {
     let score = 0;
     quizArray.map((quizItem, index) => {
       for (let i = 0; i < 4; i++) {
@@ -132,6 +131,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
+    clearInterval(timer);
     return score;
   };
 
