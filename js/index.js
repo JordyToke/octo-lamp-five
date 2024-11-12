@@ -31,12 +31,14 @@ window.addEventListener('DOMContentLoaded', () => {
   submitBtn.addEventListener('click', () => {
     const scoreSpan = document.querySelector('#score');
     scoreSpan.innerHTML = calculateScore();
+    console.log('Submit Button: Score Updated');
   });
 
   // Task 4. Reset Button
   const resetBtn = document.querySelector('#btnReset');
-  submitBtn.addEventListener('click', () => {
-    window.location()
+  resetBtn.addEventListener('click', () => {
+    window.location.reload();
+    console.log('Reset Button: Page reloaded');
   });
 
   // quizArray QUESTIONS & ANSWERS
