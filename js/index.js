@@ -25,6 +25,20 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#quizBlock').style.display = 'block';
     start.style.display = 'none';
   });
+
+  // Task 2. Submit Button
+  const submitBtn = document.querySelector('#btnSubmit');
+  submitBtn.addEventListener('click', () => {
+    const scoreSpan = document.querySelector('#score');
+    scoreSpan.innerHTML = calculateScore();
+  });
+
+  // Task 4. Reset Button
+  const resetBtn = document.querySelector('#btnReset');
+  submitBtn.addEventListener('click', () => {
+    window.location()
+  });
+
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
   // Basic ideas from https://code-boxx.com/simple-javascript-quiz/
@@ -40,9 +54,20 @@ window.addEventListener('DOMContentLoaded', () => {
       a: 3,
     },
     {
-      q: 'What is the capital of Australia',
+      q: 'What is the capital of Australia?',
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
       a: 1,
+    },
+    // Task 3. Add 2 additional questions to the quiz
+    {
+      q: 'Which mountain has the highest altitude on Earth?',
+      o: ['K2', 'Chimborazo', 'Kilimanjaro', 'Everest'],
+      a: 3,
+    },
+    {
+      q: 'Where is the lowest altitude on the Earth\'s surface?',
+      o: ['The Dead Sea', 'Litke Deep', 'The Mariana Trench', 'Kola Borehole'],
+      a: 3
     },
   ];
 
@@ -76,13 +101,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (quizItem.a == i) {
           //change background color of li element here
+          // correct answers background to a light green color
+          liElement.style.backgroundColor = '#AFA';
         }
 
         if (radioElement.checked) {
           // code for task 1 goes here
+          score++;
         }
       }
     });
+    return score;
   };
 
   // call the displayQuiz function
