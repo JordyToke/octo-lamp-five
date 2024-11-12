@@ -122,7 +122,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const calculateScore = (timer) => {
     let score = 0;
     quizArray.map((quizItem, index) => {
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < quizItem.o.length; i++) {
         //highlight the li if it is the correct answer
         let li = `li_${index}_${i}`;
         let r = `radio_${index}_${i}`;
@@ -130,15 +130,21 @@ window.addEventListener('DOMContentLoaded', () => {
         radioElement = document.querySelector('#' + r);
 
         if (quizItem.a == i) {
-          //change background color of li element here
-          // correct answers background to a light green color
+          // if correct answer
           liElement.style.backgroundColor = '#AFA';
-          score++;
         }
 
+        // if checked
         if (radioElement.checked) {
-          // code for task 1 goes here
+          if (quizItem.a == i) {
+            // if correct
+            score++;
+          } else {
+            // if not correct
+            liElement.style.backgroundColor = '#FAA';
+          }
         }
+        
       }
     });
     clearInterval(timer);
