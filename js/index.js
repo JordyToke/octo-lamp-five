@@ -102,6 +102,11 @@ window.addEventListener('DOMContentLoaded', () => {
       o: ['True', 'False'],
       a: 0,
     },
+    {
+      q: 'At what altitude can one achieve geosynchronous orbit around Earth?',
+      o: ['370,000km', '74,000km', '36,000km', '124,000km'],
+      a: 2,
+    },
   ];
 
   // function to Display the quiz questions and answers from the object
