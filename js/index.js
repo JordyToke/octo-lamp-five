@@ -20,18 +20,24 @@
 *************************** */
 
 window.addEventListener('DOMContentLoaded', () => {
+  // start button
   const start = document.querySelector('#start');
+  // on click start
   start.addEventListener('click', function (e) {
     document.querySelector('#quizBlock').style.display = 'block';
     start.style.display = 'none';
-    startTimer(clock);
+    startTimer();
   });
 
   // Task 2. Submit Button
   const submitBtn = document.querySelector('#btnSubmit');
+
+  // score element
   const scoreSpan = document.querySelector('#score');
+
+  // on click submit
   submitBtn.addEventListener('click', () => {
-    scoreSpan.innerHTML = calculateScore();
+    calculateScore();
     console.log('Submit Button: Score Updated');
   });
 
@@ -43,21 +49,23 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   // Task 5. Add functionality to quiz timer
-  const clock = document.querySelector('#time');
 
-  const startTimer = (clock) => {
-    // could implement to parse clocks inner html to get time value?
-    // but decided to set time to 59 seconds for simplicities sake
-    let sec = 59;
-    let timer = setInterval(function(){
-          clock.innerHTML='00:'+ sec;
-          sec--;
-          if (sec < 0) {
-              calculateScore(timer);
-              console.log('Timeout: Score Updated');
-          }
-      }, 1000)
-}
+  // clock element
+  const clock = document.querySelector('#time');
+  // timer
+  let sec = 59;
+
+  // timer function
+  const startTimer = setInterval(() => {
+      clock.innerHTML = '00:' + sec;
+      sec--;
+      if (sec < 0) {
+        calculateScore(timer);
+        console.log('Timeout: Score Updated');
+        clearInterval(startTimer);
+      }
+    }, 1000
+  );
 
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
@@ -85,14 +93,14 @@ window.addEventListener('DOMContentLoaded', () => {
       a: 3,
     },
     {
-      q: 'Where is the lowest altitude on the Earth\'s surface?',
+      q: "Where is the lowest altitude on the Earth's surface?",
       o: ['The Dead Sea', 'Litke Deep', 'The Mariana Trench', 'Kola Borehole'],
-      a: 3
+      a: 3,
     },
     {
       q: 'Arachnids have eight legs?',
       o: ['True', 'False'],
-      a: 0
+      a: 0,
     },
   ];
 
@@ -100,14 +108,13 @@ window.addEventListener('DOMContentLoaded', () => {
   const displayQuiz = () => {
     const quizWrap = document.querySelector('#quizWrap');
     let quizDisplay = '';
-
     // format quiz and put to display
     quizArray.map((quizItem, index) => {
       let options = '';
       // format quizItem options
       quizItem.o.forEach((option, optionIndex) => {
-        options += `<li class="list-group-item" id="li_${index}_${optionIndex}"><input type="radio" name="radio${index}" id="radio_${index}_${optionIndex}"> ${option}</li>`
-      })
+        options += `<li class="list-group-item" id="li_${index}_${optionIndex}"><input type="radio" name="radio${index}" id="radio_${index}_${optionIndex}"> ${option}</li>`;
+      });
       // format quiz wrapper list
       quizDisplay += `<ul class="list-group">
                    Q - ${quizItem.q}
@@ -119,10 +126,10 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   // Calculate the score
-  const calculateScore = (timer) => {
-    let score = 0;
+  const calculateScore = () => {
+    let total = 0, score = 0;
     quizArray.map((quizItem, index) => {
-      for (let i = 0; i < quizItem.o.length; i++) {
+      for (i = 0; i < quizItem.o.length; i++) {
         //highlight the li if it is the correct answer
         let li = `li_${index}_${i}`;
         let r = `radio_${index}_${i}`;
@@ -134,8 +141,8 @@ window.addEventListener('DOMContentLoaded', () => {
           liElement.style.backgroundColor = '#AFA';
         }
 
-        // if checked
         if (radioElement.checked) {
+          // if checked
           if (quizItem.a == i) {
             // if correct
             score++;
@@ -144,11 +151,15 @@ window.addEventListener('DOMContentLoaded', () => {
             liElement.style.backgroundColor = '#FAA';
           }
         }
-        
       }
+      total++;
     });
-    clearInterval(timer);
-    return score;
+    // STOP QUIZ
+
+    // stop timer
+    clearInterval(startTimer);
+    // display score
+    scoreSpan.innerHTML = score + '/' + total;
   };
 
   // call the displayQuiz function
