@@ -24,6 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
   start.addEventListener('click', function (e) {
     document.querySelector('#quizBlock').style.display = 'block';
     start.style.display = 'none';
+    startTimer(clock);
   });
 
   // Task 2. Submit Button
@@ -40,6 +41,24 @@ window.addEventListener('DOMContentLoaded', () => {
     window.location.reload();
     console.log('Reset Button: Page reloaded');
   });
+
+  // Task 5. Add functionality to quiz timer
+  const clock = document.querySelector('#time');
+
+  const startTimer = (clock) => {
+    // could implement to parse clocks inner html to get time value?
+    // but decided to set time to 59 seconds for simplicities sake
+    let sec = 59;
+    let timer = setInterval(function(){
+          clock.innerHTML='00:'+ sec;
+          sec--;
+          if (sec < 0) {
+              calculateScore();
+              console.log('Timeout: Score Updated');
+              clearInterval(timer);
+          }
+      }, 1000)
+}
 
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER

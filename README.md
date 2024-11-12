@@ -14,7 +14,7 @@ Complete the following tasks:
 
 4. Reload the page when the reset button is clicked (hint: search window.location) ✅
 
-5. Add a countdown timer - when the time is up, end the quiz, display the score and highlight the correct answers
+5. Add a countdown timer - when the time is up, end the quiz, display the score and highlight the correct answers ✅
 
 The assessment must be completed by 3:30pm. When you have finished, upload your work to GitHub Pages and share the link with your
 pod instructor by DM on Slack.
