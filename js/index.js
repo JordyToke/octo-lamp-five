@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
   start.addEventListener('click', function (e) {
     document.querySelector('#quizBlock').style.display = 'block';
     start.style.display = 'none';
-    startTimer();
+    startTimer;
   });
 
   // Task 2. Submit Button
@@ -53,16 +53,15 @@ window.addEventListener('DOMContentLoaded', () => {
   // clock element
   const clock = document.querySelector('#time');
   // timer
-  let sec = 59;
+  let sec = 5;
 
   // timer function
   const startTimer = setInterval(() => {
       clock.innerHTML = '00:' + sec;
       sec--;
       if (sec < 0) {
-        calculateScore(timer);
+        calculateScore();
         console.log('Timeout: Score Updated');
-        clearInterval(startTimer);
       }
     }, 1000
   );
@@ -130,10 +129,12 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  let total = 0, score = 0;
   // Calculate the score
   const calculateScore = () => {
-    let total = 0, score = 0;
+    score = 0, total = 0;
     quizArray.map((quizItem, index) => {
+      total++;
       for (i = 0; i < quizItem.o.length; i++) {
         //highlight the li if it is the correct answer
         let li = `li_${index}_${i}`;
@@ -157,15 +158,27 @@ window.addEventListener('DOMContentLoaded', () => {
           }
         }
       }
-      total++;
     });
     // STOP QUIZ
+    endQuiz();
+    
+  };
 
+  // end quiz
+  const endQuiz = () => {
+    // select all quiz elements
+    const inputs = document.querySelectorAll('input');
+    // disable all inputs (radios)
+    inputs.forEach(input => {
+      input.disabled = 'true';
+    });
+    // disable submit button
+    submitBtn.disabled = 'true';
     // stop timer
     clearInterval(startTimer);
     // display score
     scoreSpan.innerHTML = score + '/' + total;
-  };
+  }
 
   // call the displayQuiz function
   displayQuiz();
